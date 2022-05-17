@@ -1,7 +1,5 @@
 package com.adam.input;
 
-import com.adam.view.View;
-
 import java.util.*;
 
 import static com.adam.view.View.difficultySelection;
@@ -37,8 +35,18 @@ public class UserInput {
 
     public static int getDifficultyFromUser() {
         difficultySelection();
-        int userSelection = scanner.nextInt();
-        scanner.nextLine();
+        int userSelection;
+        do {
+            while (!scanner.hasNextInt()) {
+                System.out.println("That's not a number, try again!");
+                scanner.next();
+            }
+            userSelection = scanner.nextInt();
+            if (userSelection <= 0 || userSelection > 4) {
+                printMessage("Please select valid difficulty level");
+            }
+        } while (userSelection <= 0 || userSelection > 4);
+        System.out.println("Thank you! Got " + userSelection);
         return userSelection;
     }
 }
