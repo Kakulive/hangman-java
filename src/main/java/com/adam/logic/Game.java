@@ -32,7 +32,7 @@ public class Game {
 
     public void start() {
         printMessage("Welcome to Hangman!");
-        setPlayerName();
+//        setPlayerName();
         printMessage("Welcome " + player.getName());
         this.category = getRandomCategory();
         printMessage("Category of your word is: " + category);
@@ -68,6 +68,7 @@ public class Game {
             if (hasPlayerWon()) {
                 printVictoryScreen(wordToGuess);
                 printMessage("Would you like to play again? ");
+                break;
             }
         }
     }
@@ -78,6 +79,9 @@ public class Game {
 
     private boolean hasPlayerWon() {
         for (char c : wordToGuessChars) {
+            if (c == ' ') {
+                continue;
+            }
             if (!revealedLetters.contains(c)) {
                 return false;
             }

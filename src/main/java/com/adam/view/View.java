@@ -13,7 +13,9 @@ public class View {
         char[] wordChars = word.toCharArray();
         for (char c : wordChars) {
             if (revealedLetters.contains(c)) {
-                sb.append(c).append(" ");
+                sb.append(c).append("  ");
+            } else if (c == ' ') {
+                sb.append(" ");
             } else {
                 sb.append("_ ");
             }
