@@ -28,16 +28,14 @@ public class UserInput {
         throw new IllegalStateException("Error has occurred during letter selection from user");
     }
 
+    public static int getDifficultyFromUser() {
+        View.difficultySelection();
+        int userSelection = scanner.nextInt();
+        scanner.nextLine();
+        return userSelection;
+    }
+
     private static boolean isLetterValid(String givenLetter) {
         return givenLetter.length() == 1 && alphabet.contains(givenLetter.charAt(0));
     }
-
-    //TODO remove or use alphabet generator
-//    private List<Character> generateAlphabet(){
-//        List<Character> alphabet = new ArrayList<>();
-//        for(int i = 0; i < 26; i++){
-//            alphabet.add((char)(65 + i));
-//        }
-//        return alphabet;
-//    }
 }

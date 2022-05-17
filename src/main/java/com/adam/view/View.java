@@ -23,6 +23,18 @@ public class View {
         System.out.println(sb);
     }
 
+    public static void printLivesLeft(int remainingLives) {
+        System.out.println("LIVES: " + remainingLives);
+    }
+
+    public static void difficultySelection() {
+        System.out.println("Please select the difficulty:\n" +
+                           "1 - Easy (7 lives)\n" +
+                           "2 - Medium (5 lives)\n" +
+                           "3 - Hard (3 lives)\n" +
+                           "4 - Impossible (1 life)\n");
+    }
+
     public static void printGameState(int remainingPlayerLives) {
         switch (remainingPlayerLives) {
             case 7 -> get7LivesASCII();

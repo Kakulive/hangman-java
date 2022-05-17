@@ -31,12 +31,13 @@ public class Game {
     public void start() {
         this.revealedLetters = new ArrayList<>();
         this.usedLetters = new ArrayList<>();
-        this.player = new Player();
+        int userDifficultySelection = UserInput.getDifficultyFromUser();
+        this.player = new Player(setDifficulty(userDifficultySelection));
         printMessage("Welcome to Hangman!");
         setPlayerName();
         printMessage("Welcome " + player.getName());
         this.category = getRandomCategory();
-        printMessage("Category of your word is: " + category);
+        printMessage("Category of your word is: " + category + "\n");
         this.wordToGuess = getRandomWord(category);
         this.wordToGuessChars = wordToGuess.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         System.out.println(wordToGuessChars); //TODO remove cheat
@@ -45,6 +46,7 @@ public class Game {
 
     private void run() {
         while (isGameRunning()) {
+            printLivesLeft(player.getRemainingLives());
             printWord(wordToGuess, revealedLetters);
             System.out.println("");
             printGameState(player.getRemainingLives());
@@ -64,8 +66,8 @@ public class Game {
             if (isPlayerDead()) {
                 printGameState(player.getRemainingLives());
                 printMessage("You have lost all your lives!");
-                String userInput = getUserInput("Would you like to play again? [y/n]" ).toLowerCase(Locale.ROOT);
-                if (userInput.equals("y") || userInput.equals("yes")){
+                String userInput = getUserInput("Would you like to play again? [y/n]").toLowerCase(Locale.ROOT);
+                if (userInput.equals("y") || userInput.equals("yes")) {
                     View.clearScreen();
                     start();
                 } else {
@@ -75,7 +77,7 @@ public class Game {
             if (hasPlayerWon()) {
                 printVictoryScreen(wordToGuess);
                 String userInput = getUserInput("Would you like to play again? ").toLowerCase(Locale.ROOT);
-                if (userInput.equals("y") || userInput.equals("yes")){
+                if (userInput.equals("y") || userInput.equals("yes")) {
                     start();
                 } else {
                     System.exit(0);
@@ -84,7 +86,22 @@ public class Game {
         }
     }
 
-
+    private DifficultyLevel setDifficulty(int userSelection) {
+        switch (userSelection) {
+            case 2 -> {
+                return DifficultyLevel.MEDIUM;
+            }
+            case 3 -> {
+                return DifficultyLevel.HARD;
+            }
+            case 4 -> {
+                return DifficultyLevel.IMPOSSIBLE;
+            }
+            default -> {
+                return DifficultyLevel.EASY;
+            }
+        }
+    }
 
     private boolean isPlayerDead() {
         return player.getRemainingLives() <= 0;
