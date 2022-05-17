@@ -1,15 +1,15 @@
 package com.adam.logic;
 
 import com.adam.input.UserInput;
-import com.adam.logic.words.CapitalsWords;
 import com.adam.logic.words.Category;
-import com.adam.logic.words.CountriesWords;
 import com.adam.player.Player;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.adam.helpers.Helper.getRandomNumber;
@@ -46,6 +46,7 @@ public class Game {
 
     private void run() {
         while (isGameRunning()) {
+            System.out.println("");
             printGameState(player.getRemainingLives());
             char guessedLetter = UserInput.getCharFromUser();
             if (usedLetters.contains(guessedLetter)) {
@@ -97,15 +98,31 @@ public class Game {
     }
 
     private String getRandomWord(Category category) {
+        List<String> wordsForCategory = getWordsForCategory(category);
+        int randomWordNumber = getRandomNumber(wordsForCategory.size());
+
+        return wordsForCategory.get(randomWordNumber).toUpperCase(Locale.ROOT);
+    }
+
+    private List<String> getWordsForCategory(Category category) {
+        List<String> records = new ArrayList<>();
+        InputStream stream;
         if (category.equals(Category.CAPITALS)) {
-            int randomWordNumber = getRandomNumber(CapitalsWords.values().length);
-            return CapitalsWords.values()[randomWordNumber].toString();
+            stream = getClass().getClassLoader().getResourceAsStream("capitals.csv");
         } else if (category.equals(Category.COUNTRIES)) {
-            int randomWordNumber = getRandomNumber(CountriesWords.values().length);
-            return CountriesWords.values()[randomWordNumber].toString();
+            stream = getClass().getClassLoader().getResourceAsStream("countries.csv");
         } else {
-            throw new IllegalArgumentException("Unknown category " + category);
+            stream = getClass().getClassLoader().getResourceAsStream("animals.csv");
         }
+
+        if (stream == null) {
+            throw new IllegalArgumentException("File not found");
+        }
+        Scanner scanner = new Scanner(stream);
+        while (scanner.hasNextLine()) {
+            records.add((scanner.nextLine()));
+        }
+        return records;
     }
 
     private boolean isGameRunning() {
