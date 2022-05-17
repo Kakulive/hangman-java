@@ -7,7 +7,7 @@ public class View {
         System.out.println(message);
     }
 
-    public static void printWord(String word, List<Character> revealedLetters) {
+    public static void printGuessedWord(String word, List<Character> revealedLetters) {
         StringBuilder sb = new StringBuilder();
         sb.append("Word to guess: ");
         char[] wordChars = word.toCharArray();
@@ -28,11 +28,13 @@ public class View {
     }
 
     public static void difficultySelection() {
-        System.out.println("Please select the difficulty:\n" +
-                           "1 - Easy (7 lives)\n" +
-                           "2 - Medium (5 lives)\n" +
-                           "3 - Hard (3 lives)\n" +
-                           "4 - Impossible (1 life)\n");
+        System.out.println("""
+                Please select the difficulty:
+                1 - Easy (7 lives)
+                2 - Medium (5 lives)
+                3 - Hard (3 lives)
+                4 - Impossible (1 life)
+                """);
     }
 
     public static void printGameState(int remainingPlayerLives) {
@@ -47,6 +49,38 @@ public class View {
             case 0 -> get0LivesASCII();
             default -> throw new IllegalStateException("Cannot read game state");
         }
+    }
+
+    public static void printEmptyLine() {
+        System.out.println();
+    }
+
+    public static void printDefeatScreen() {
+        System.out.println("""
+                 @@@@@                                        @@@@@
+                @@@@@@@                                      @@@@@@@
+                @@@@@@@           @@@@@@@@@@@@@@@            @@@@@@@
+                 @@@@@@@@       @@@@@@@@@@@@@@@@@@@        @@@@@@@@
+                     @@@@@     @@@@@@@@@@@@@@@@@@@@@     @@@@@
+                       @@@@@  @@@@@@@@@@@@@@@@@@@@@@@  @@@@@
+                         @@  @@@@@@@@@@@@@@@@@@@@@@@@@  @@
+                            @@@@@@@    @@@@@@    @@@@@@
+                            @@@@@@      @@@@      @@@@@
+                            @@@@@@      @@@@      @@@@@
+                             @@@@@@    @@@@@@    @@@@@
+                              @@@@@@@@@@@  @@@@@@@@@@
+                               @@@@@@@@@@  @@@@@@@@@
+                           @@   @@@@@@@@@@@@@@@@@   @@
+                           @@@@  @@@@ @ @ @ @ @@@@  @@@@
+                          @@@@@   @@@ @ @ @ @ @@@   @@@@@
+                        @@@@@      @@@@@@@@@@@@@      @@@@@
+                      @@@@          @@@@@@@@@@@          @@@@
+                   @@@@@              @@@@@@@              @@@@@
+                  @@@@@@@                                 @@@@@@@
+                   @@@@@                                   @@@@@
+                                
+                """);
+
     }
 
     public static void printVictoryScreen(String word) {

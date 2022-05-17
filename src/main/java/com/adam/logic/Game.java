@@ -3,7 +3,6 @@ package com.adam.logic;
 import com.adam.input.UserInput;
 import com.adam.logic.words.Category;
 import com.adam.player.Player;
-import com.adam.view.View;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,72 +17,124 @@ import static com.adam.view.View.*;
 @Getter
 @Setter
 public class Game {
-    private List<Character> usedLetters;
+    private String wordToGuess;
     private Player player;
     private Category category;
-    private String wordToGuess;
     private List<Character> wordToGuessChars;
+    private List<Character> usedLetters;
     private List<Character> revealedLetters;
 
     public Game() {
     }
 
     public void start() {
-        this.revealedLetters = new ArrayList<>();
-        this.usedLetters = new ArrayList<>();
-        int userDifficultySelection = UserInput.getDifficultyFromUser();
-        this.player = new Player(setDifficulty(userDifficultySelection));
-        printMessage("Welcome to Hangman!");
-        setPlayerName();
-        printMessage("Welcome " + player.getName());
-        this.category = getRandomCategory();
+        gameSetup();
+        playerSetup();
         printMessage("Category of your word is: " + category + "\n");
-        this.wordToGuess = getRandomWord(category);
-        this.wordToGuessChars = wordToGuess.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         System.out.println(wordToGuessChars); //TODO remove cheat
         run();
     }
 
+    private void gameSetup() {
+        printMessage("Welcome to Hangman!");
+        this.revealedLetters = new ArrayList<>();
+        this.usedLetters = new ArrayList<>();
+        this.category = getRandomCategory();
+        this.wordToGuess = getRandomWord(category);
+        this.wordToGuessChars = wordToGuess.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+    }
+
+    private void playerSetup() {
+        int userDifficultySelection = UserInput.getDifficultyFromUser();
+        this.player = new Player(setDifficulty(userDifficultySelection));
+        setPlayerName();
+        printMessage("Welcome " + player.getName());
+    }
+
     private void run() {
         while (isGameRunning()) {
-            printLivesLeft(player.getRemainingLives());
-            printWord(wordToGuess, revealedLetters);
-            System.out.println("");
-            printGameState(player.getRemainingLives());
+            displayUi();
             char guessedLetter = UserInput.getCharFromUser();
+
             if (usedLetters.contains(guessedLetter)) {
                 printMessage("The letter has already been used, try another one!");
                 continue;
             } else if (wordToGuessChars.contains(guessedLetter)) {
-                usedLetters.add(guessedLetter);
-                revealedLetters.add(guessedLetter);
-                printMessage(guessedLetter + " - That's a correct letter!");
+                correctLetterGuessed(guessedLetter);
             } else {
-                printMessage("Wrong letter, try again!");
-                player.setRemainingLives(player.getRemainingLives() - 1);
-                usedLetters.add(guessedLetter);
+                wrongLetterGuessed(guessedLetter);
             }
-            if (isPlayerDead()) {
-                printGameState(player.getRemainingLives());
-                printMessage("You have lost all your lives!");
-                String userInput = getUserInput("Would you like to play again? [y/n]").toLowerCase(Locale.ROOT);
-                if (userInput.equals("y") || userInput.equals("yes")) {
-                    View.clearScreen();
-                    start();
-                } else {
-                    System.exit(0);
-                }
+            checkForLoss();
+            checkForWin();
+        }
+    }
+
+    private boolean isGameRunning() {
+        return player.getRemainingLives() > 0 && wordToGuessChars.size() > 0;
+    }
+
+    private void displayUi() {
+        printLivesLeft(player.getRemainingLives());
+        printGuessedWord(wordToGuess, revealedLetters);
+        printEmptyLine();
+        printGameState(player.getRemainingLives());
+    }
+
+    private void correctLetterGuessed(char guessedLetter) {
+        usedLetters.add(guessedLetter);
+        revealedLetters.add(guessedLetter);
+        printMessage(guessedLetter + " - That's a correct letter!");
+    }
+
+    private void wrongLetterGuessed(char guessedLetter) {
+        player.setRemainingLives(player.getRemainingLives() - 1);
+        usedLetters.add(guessedLetter);
+        printMessage("Wrong letter, try again!");
+    }
+
+    private void checkForLoss() {
+        if (isPlayerDead()) {
+            printGameState(player.getRemainingLives());
+            printDefeatScreen();
+            playAgainCheck();
+        }
+    }
+
+    private boolean isPlayerDead() {
+        return player.getRemainingLives() <= 0;
+    }
+
+    private void checkForWin() {
+        if (hasPlayerWon()) {
+            printVictoryScreen(wordToGuess);
+            playAgainCheck();
+        }
+    }
+
+    private boolean hasPlayerWon() {
+        for (char c : wordToGuessChars) {
+            if (c == ' ') {
+                continue;
             }
-            if (hasPlayerWon()) {
-                printVictoryScreen(wordToGuess);
-                String userInput = getUserInput("Would you like to play again? ").toLowerCase(Locale.ROOT);
-                if (userInput.equals("y") || userInput.equals("yes")) {
-                    start();
-                } else {
-                    System.exit(0);
-                }
+            if (!revealedLetters.contains(c)) {
+                return false;
             }
         }
+        return true;
+    }
+
+    private void playAgainCheck() {
+        String userInput = getUserInput("\nWould you like to play again? [y/n]").toLowerCase(Locale.ROOT);
+        if (userInput.equals("y") || userInput.equals("yes")) {
+            clearScreen();
+            start();
+        } else {
+            exitGame();
+        }
+    }
+
+    private void exitGame() {
+        System.exit(0);
     }
 
     private DifficultyLevel setDifficulty(int userSelection) {
@@ -101,22 +152,6 @@ public class Game {
                 return DifficultyLevel.EASY;
             }
         }
-    }
-
-    private boolean isPlayerDead() {
-        return player.getRemainingLives() <= 0;
-    }
-
-    private boolean hasPlayerWon() {
-        for (char c : wordToGuessChars) {
-            if (c == ' ') {
-                continue;
-            }
-            if (!revealedLetters.contains(c)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private void setPlayerName() {
@@ -155,9 +190,5 @@ public class Game {
             records.add((scanner.nextLine()));
         }
         return records;
-    }
-
-    private boolean isGameRunning() {
-        return player.getRemainingLives() > 0 && wordToGuessChars.size() > 0;
     }
 }

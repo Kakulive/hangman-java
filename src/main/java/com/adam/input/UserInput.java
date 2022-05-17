@@ -4,17 +4,19 @@ import com.adam.view.View;
 
 import java.util.*;
 
+import static com.adam.view.View.printMessage;
+
 public class UserInput {
-    private static List<Character> alphabet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-    private static Scanner scanner = new Scanner(System.in);
+    private static final List<Character> alphabet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static String getUserInput(String message) {
-        View.printMessage(message);
+        printMessage(message);
         return scanner.nextLine();
     }
 
     public static Character getCharFromUser() {
-        View.printMessage("Please guess the next letter: ");
+        printMessage("Please guess the next letter: ");
         String givenLetter = "";
 
         while (!(isLetterValid(givenLetter))) {
@@ -22,10 +24,14 @@ public class UserInput {
             if (isLetterValid(givenLetter)) {
                 return givenLetter.charAt(0);
             } else {
-                View.printMessage("Please select a valid letter: ");
+                printMessage("Please select a valid letter: ");
             }
         }
         throw new IllegalStateException("Error has occurred during letter selection from user");
+    }
+
+    private static boolean isLetterValid(String givenLetter) {
+        return givenLetter.length() == 1 && alphabet.contains(givenLetter.charAt(0));
     }
 
     public static int getDifficultyFromUser() {
@@ -33,9 +39,5 @@ public class UserInput {
         int userSelection = scanner.nextInt();
         scanner.nextLine();
         return userSelection;
-    }
-
-    private static boolean isLetterValid(String givenLetter) {
-        return givenLetter.length() == 1 && alphabet.contains(givenLetter.charAt(0));
     }
 }
