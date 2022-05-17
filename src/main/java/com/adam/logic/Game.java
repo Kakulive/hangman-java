@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.adam.helpers.Helper.getRandomNumber;
+import static com.adam.input.UserInput.getDifficultyFromUser;
 import static com.adam.input.UserInput.getUserInput;
 import static com.adam.view.View.*;
 
@@ -30,13 +31,13 @@ public class Game {
     public void start() {
         gameSetup();
         playerSetup();
-        printMessage("Category of your word is: " + category + "\n");
+        printCategory(category);
         System.out.println(wordToGuessChars); //TODO remove cheat
         run();
     }
 
     private void gameSetup() {
-        printMessage("Welcome to Hangman!");
+        printWelcomeScreen();
         this.revealedLetters = new ArrayList<>();
         this.usedLetters = new ArrayList<>();
         this.category = getRandomCategory();
@@ -45,10 +46,10 @@ public class Game {
     }
 
     private void playerSetup() {
-        int userDifficultySelection = UserInput.getDifficultyFromUser();
+        int userDifficultySelection = getDifficultyFromUser();
         this.player = new Player(setDifficulty(userDifficultySelection));
         setPlayerName();
-        printMessage("Welcome " + player.getName());
+        printMessage("\nWelcome " + player.getName());
     }
 
     private void run() {
@@ -89,13 +90,12 @@ public class Game {
     private void wrongLetterGuessed(char guessedLetter) {
         player.setRemainingLives(player.getRemainingLives() - 1);
         usedLetters.add(guessedLetter);
-        printMessage("Wrong letter, try again!");
+        wrongLetterMessage();
     }
 
     private void checkForLoss() {
         if (isPlayerDead()) {
             printGameState(player.getRemainingLives());
-            printDefeatScreen();
             playAgainCheck();
         }
     }
@@ -155,7 +155,8 @@ public class Game {
     }
 
     private void setPlayerName() {
-        String playerName = getUserInput("Please tell me your name: ");
+        nameSelection();
+        String playerName = getUserInput("Name: ");
         player.setName(playerName);
     }
 

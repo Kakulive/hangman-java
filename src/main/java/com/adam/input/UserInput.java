@@ -4,6 +4,7 @@ import com.adam.view.View;
 
 import java.util.*;
 
+import static com.adam.view.View.difficultySelection;
 import static com.adam.view.View.printMessage;
 
 public class UserInput {
@@ -35,7 +36,7 @@ public class UserInput {
     }
 
     public static int getDifficultyFromUser() {
-        View.difficultySelection();
+        difficultySelection();
         int userSelection = scanner.nextInt();
         scanner.nextLine();
         return userSelection;

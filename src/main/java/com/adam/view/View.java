@@ -1,5 +1,7 @@
 package com.adam.view;
 
+import com.adam.logic.words.Category;
+
 import java.util.List;
 
 public class View {
@@ -9,13 +11,13 @@ public class View {
 
     public static void printGuessedWord(String word, List<Character> revealedLetters) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Word to guess: ");
+        sb.append(ConsoleColors.GREEN + "Word to guess: " + ConsoleColors.RESET);
         char[] wordChars = word.toCharArray();
         for (char c : wordChars) {
             if (revealedLetters.contains(c)) {
-                sb.append(c).append("  ");
+                sb.append(c).append(" ");
             } else if (c == ' ') {
-                sb.append(" ");
+                sb.append("   ");
             } else {
                 sb.append("_ ");
             }
@@ -24,17 +26,34 @@ public class View {
     }
 
     public static void printLivesLeft(int remainingLives) {
-        System.out.println("LIVES: " + remainingLives);
+        System.out.println(ConsoleColors.GREEN + "LIVES: " + ConsoleColors.RESET + remainingLives);
+    }
+
+    public static void printWelcomeScreen() {
+        System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT + "Welcome to HANGMAN" + ConsoleColors.RESET);
+    }
+
+    public static void printCategory(Category category) {
+        System.out.println(ConsoleColors.GREEN + "Category of your word is: " + ConsoleColors.RESET + category.toString());
+    }
+
+    public static void wrongLetterMessage() {
+        System.out.println(ConsoleColors.RED + "Wrong letter, try again!" + ConsoleColors.RESET);
     }
 
     public static void difficultySelection() {
+        System.out.println(ConsoleColors.GREEN + "Please select the difficulty:" + ConsoleColors.RESET);
         System.out.println("""
-                Please select the difficulty:
-                1 - Easy (7 lives)
+                1 - Default (7 lives)
                 2 - Medium (5 lives)
                 3 - Hard (3 lives)
                 4 - Impossible (1 life)
+                Difficulty:
                 """);
+    }
+
+    public static void nameSelection() {
+        System.out.println(ConsoleColors.GREEN + "Please tell me your name" + ConsoleColors.RESET);
     }
 
     public static void printGameState(int remainingPlayerLives) {
@@ -55,36 +74,8 @@ public class View {
         System.out.println();
     }
 
-    public static void printDefeatScreen() {
-        System.out.println("""
-                 @@@@@                                        @@@@@
-                @@@@@@@                                      @@@@@@@
-                @@@@@@@           @@@@@@@@@@@@@@@            @@@@@@@
-                 @@@@@@@@       @@@@@@@@@@@@@@@@@@@        @@@@@@@@
-                     @@@@@     @@@@@@@@@@@@@@@@@@@@@     @@@@@
-                       @@@@@  @@@@@@@@@@@@@@@@@@@@@@@  @@@@@
-                         @@  @@@@@@@@@@@@@@@@@@@@@@@@@  @@
-                            @@@@@@@    @@@@@@    @@@@@@
-                            @@@@@@      @@@@      @@@@@
-                            @@@@@@      @@@@      @@@@@
-                             @@@@@@    @@@@@@    @@@@@
-                              @@@@@@@@@@@  @@@@@@@@@@
-                               @@@@@@@@@@  @@@@@@@@@
-                           @@   @@@@@@@@@@@@@@@@@   @@
-                           @@@@  @@@@ @ @ @ @ @@@@  @@@@
-                          @@@@@   @@@ @ @ @ @ @@@   @@@@@
-                        @@@@@      @@@@@@@@@@@@@      @@@@@
-                      @@@@          @@@@@@@@@@@          @@@@
-                   @@@@@              @@@@@@@              @@@@@
-                  @@@@@@@                                 @@@@@@@
-                   @@@@@                                   @@@@@
-                                
-                """);
-
-    }
-
     public static void printVictoryScreen(String word) {
-        System.out.println("Congratulations! You have won!\nYour word is " + word + "\n");
+        System.out.println(ConsoleColors.GREEN + "Congratulations! You have won!\nYour word is " + word + ConsoleColors.RESET + "\n");
         System.out.println("""
 
                 ██╗░░░██╗██╗░█████╗░████████╗░█████╗░██████╗░██╗░░░██╗
@@ -109,7 +100,8 @@ public class View {
                     |
                     |
                     |
-                =========""");
+                =========
+                """);
     }
 
     private static void get6LivesASCII() {
@@ -120,7 +112,8 @@ public class View {
                     |
                     |
                     |
-                =========""");
+                =========
+                """);
     }
 
     private static void get5LivesASCII() {
@@ -131,7 +124,8 @@ public class View {
                     |
                     |
                     |
-                =========""");
+                =========
+                """);
     }
 
     private static void get4LivesASCII() {
@@ -142,7 +136,8 @@ public class View {
                 |   |
                     |
                     |
-                =========""");
+                =========
+                """);
     }
 
     private static void get3LivesASCII() {
@@ -153,7 +148,8 @@ public class View {
                 /|   |
                      |
                      |
-                 =========""");
+                 =========
+                 """);
     }
 
     private static void get2LivesASCII() {
@@ -164,7 +160,8 @@ public class View {
                 /|\\  |
                      |
                      |
-                 =========""");
+                 =========
+                 """);
     }
 
     private static void get1LivesASCII() {
@@ -175,18 +172,20 @@ public class View {
                 /|\\  |
                 /    |
                      |
-                 =========""");
+                 =========
+                 """);
     }
 
     private static void get0LivesASCII() {
+        System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "GAME OVER" + ConsoleColors.RESET);
         System.out.println("""
-                 GAME OVER
                  +---+
                  |   |
                  O   |
                 /|\\  |
                 / \\  |
                      |
-                 =========""");
+                 =========
+                 """);
     }
 }
