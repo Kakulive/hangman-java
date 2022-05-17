@@ -3,6 +3,7 @@ package com.adam.logic;
 import com.adam.input.UserInput;
 import com.adam.logic.words.Category;
 import com.adam.player.Player;
+import com.adam.view.View;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,7 @@ import static com.adam.view.View.*;
 @Getter
 @Setter
 public class Game {
-    private final List<Character> usedLetters;
+    private List<Character> usedLetters;
     private Player player;
     private Category category;
     private String wordToGuess;
@@ -25,14 +26,14 @@ public class Game {
     private List<Character> revealedLetters;
 
     public Game() {
-        this.usedLetters = new ArrayList<>();
-        this.revealedLetters = new ArrayList<>();
-        this.player = new Player();
     }
 
     public void start() {
+        this.revealedLetters = new ArrayList<>();
+        this.usedLetters = new ArrayList<>();
+        this.player = new Player();
         printMessage("Welcome to Hangman!");
-//        setPlayerName();
+        setPlayerName();
         printMessage("Welcome " + player.getName());
         this.category = getRandomCategory();
         printMessage("Category of your word is: " + category);
@@ -63,15 +64,27 @@ public class Game {
             if (isPlayerDead()) {
                 printGameState(player.getRemainingLives());
                 printMessage("You have lost all your lives!");
-                printMessage("Would you like to play again? ");
+                String userInput = getUserInput("Would you like to play again? [y/n]" ).toLowerCase(Locale.ROOT);
+                if (userInput.equals("y") || userInput.equals("yes")){
+                    View.clearScreen();
+                    start();
+                } else {
+                    System.exit(0);
+                }
             }
             if (hasPlayerWon()) {
                 printVictoryScreen(wordToGuess);
-                printMessage("Would you like to play again? ");
-                break;
+                String userInput = getUserInput("Would you like to play again? ").toLowerCase(Locale.ROOT);
+                if (userInput.equals("y") || userInput.equals("yes")){
+                    start();
+                } else {
+                    System.exit(0);
+                }
             }
         }
     }
+
+
 
     private boolean isPlayerDead() {
         return player.getRemainingLives() <= 0;
