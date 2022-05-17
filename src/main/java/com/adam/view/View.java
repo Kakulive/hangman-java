@@ -34,6 +34,19 @@ public class View {
         }
     }
 
+    public static void printVictoryScreen(String word) {
+        System.out.println("Congratulations! You have won!\nYour word is " + word + "\n");
+        System.out.println("""
+
+                ██╗░░░██╗██╗░█████╗░████████╗░█████╗░██████╗░██╗░░░██╗
+                ██║░░░██║██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝
+                ╚██╗░██╔╝██║██║░░╚═╝░░░██║░░░██║░░██║██████╔╝░╚████╔╝░
+                ░╚████╔╝░██║██║░░██╗░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░
+                ░░╚██╔╝░░██║╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░
+                ░░░╚═╝░░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░
+                """);
+    }
+
     private static void get7LivesASCII() {
         System.out.println("""
                 +---+

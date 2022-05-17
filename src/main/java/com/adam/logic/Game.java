@@ -66,7 +66,7 @@ public class Game {
                 printMessage("Would you like to play again? ");
             }
             if (hasPlayerWon()) {
-                printMessage("Congratulations! Your word was: " + wordToGuess);
+                printVictoryScreen(wordToGuess);
                 printMessage("Would you like to play again? ");
             }
         }
