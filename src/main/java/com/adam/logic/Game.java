@@ -6,8 +6,6 @@ import com.adam.player.Player;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,6 +44,7 @@ public class Game {
 
     private void run() {
         while (isGameRunning()) {
+            printWord(wordToGuess, revealedLetters);
             System.out.println("");
             printGameState(player.getRemainingLives());
             char guessedLetter = UserInput.getCharFromUser();
@@ -56,7 +55,6 @@ public class Game {
                 usedLetters.add(guessedLetter);
                 revealedLetters.add(guessedLetter);
                 printMessage(guessedLetter + " - That's a correct letter!");
-                printWord(wordToGuess, revealedLetters);
             } else {
                 printMessage("Wrong letter, try again!");
                 player.setRemainingLives(player.getRemainingLives() - 1);
@@ -128,6 +126,4 @@ public class Game {
     private boolean isGameRunning() {
         return player.getRemainingLives() > 0 && wordToGuessChars.size() > 0;
     }
-
-
 }

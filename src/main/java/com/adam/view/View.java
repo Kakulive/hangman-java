@@ -9,6 +9,7 @@ public class View {
 
     public static void printWord(String word, List<Character> revealedLetters) {
         StringBuilder sb = new StringBuilder();
+        sb.append("Word to guess: ");
         char[] wordChars = word.toCharArray();
         for (char c : wordChars) {
             if (revealedLetters.contains(c)) {
