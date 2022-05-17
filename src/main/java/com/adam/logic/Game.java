@@ -59,6 +59,7 @@ public class Game {
             } else {
                 printMessage("Wrong letter, try again!");
                 player.setRemainingLives(player.getRemainingLives() - 1);
+                usedLetters.add(guessedLetter);
             }
             if (isPlayerDead()) {
                 printGameState(player.getRemainingLives());
