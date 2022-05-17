@@ -32,7 +32,7 @@ public class Game {
         gameSetup();
         playerSetup();
         printCategory(category);
-        System.out.println(wordToGuessChars); //TODO remove cheat
+//        System.out.println(wordToGuess); //TODO remove cheat when not needed
         run();
     }
 
