@@ -14,6 +14,7 @@ import static com.adam.helpers.Helper.getRandomNumber;
 @Getter
 @Setter
 public class Game {
+    private DifficultyLevel difficulty;
     private String wordToGuess;
     private Category category;
     private List<Character> wordToGuessChars;
@@ -21,7 +22,8 @@ public class Game {
     private List<Character> revealedLetters;
     private WordGenerator wordGenerator;
 
-    public Game() {
+    public Game(DifficultyLevel difficulty) {
+        this.difficulty = difficulty;
         this.wordGenerator = new WordGeneratorFileImpl();
     }
 

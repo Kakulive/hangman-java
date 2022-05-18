@@ -63,27 +63,9 @@ public class GameController {
     }
 
     private void playerSetup() {
-        int userDifficultySelection = input.getDifficultyFromUser();
-        this.player = new Player(setDifficulty(userDifficultySelection));
+        this.player = new Player(game.getDifficulty());
         setPlayerName();
         gameView.printMessage("\nWelcome " + player.getName());
-    }
-
-    private DifficultyLevel setDifficulty(int userSelection) {
-        switch (userSelection) {
-            case 2 -> {
-                return DifficultyLevel.MEDIUM;
-            }
-            case 3 -> {
-                return DifficultyLevel.HARD;
-            }
-            case 4 -> {
-                return DifficultyLevel.IMPOSSIBLE;
-            }
-            default -> {
-                return DifficultyLevel.EASY;
-            }
-        }
     }
 
     private void setPlayerName() {
