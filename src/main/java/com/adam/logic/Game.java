@@ -92,7 +92,7 @@ public class Game {
     }
 
     private void wrongLetterGuessed(char guessedLetter) {
-        player.setRemainingLives(player.getRemainingLives() - 1);
+        player.hitPlayer();
         usedLetters.add(guessedLetter);
         view.wrongLetterMessage();
     }

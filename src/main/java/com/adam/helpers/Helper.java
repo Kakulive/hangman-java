@@ -1,7 +1,5 @@
 package com.adam.helpers;
 
-import com.adam.logic.words.Category;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;

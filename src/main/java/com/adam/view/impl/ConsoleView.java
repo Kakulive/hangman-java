@@ -8,7 +8,7 @@ import com.adam.view.inter.View;
 import java.util.List;
 
 public class ConsoleView implements View {
-    private Helper helper = new Helper();
+    private final Helper helper = new Helper();
 
     public void printMessage(String message) {
         System.out.println(message);

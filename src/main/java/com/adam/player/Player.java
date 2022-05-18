@@ -1,15 +1,23 @@
 package com.adam.player;
 
 import com.adam.logic.DifficultyLevel;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class Player {
     private String name;
     private int remainingLives;
 
     public Player(DifficultyLevel difficulty) {
         this.remainingLives = setInitialLives(difficulty);
+    }
+
+    public void hitPlayer() {
+        this.remainingLives = this.remainingLives - 1;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     private int setInitialLives(DifficultyLevel difficulty) {
