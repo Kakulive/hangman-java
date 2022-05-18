@@ -1,15 +1,16 @@
 package com.adam.logic;
 
 import com.adam.helpers.Helper;
-import com.adam.input.UserInput;
+import com.adam.input.UserInteractionController;
 import com.adam.logic.words.Category;
+import com.adam.logic.words.WordGenerator;
+import com.adam.logic.words.WordGeneratorFileImpl;
 import com.adam.player.Player;
 import com.adam.view.impl.ConsoleView;
-import com.adam.view.inter.View;
+import com.adam.view.View;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,13 +27,15 @@ public class Game {
     private List<Character> revealedLetters;
 
     private View view;
-    private UserInput input;
+    private UserInteractionController input;
     private Helper helper;
+    private WordGenerator wordGenerator;
 
     public Game() {
         this.view = new ConsoleView();
-        this.input = new UserInput();
+        this.input = new UserInteractionController();
         this.helper = new Helper();
+        this.wordGenerator = new WordGeneratorFileImpl();
     }
 
     public void start() {
@@ -173,21 +176,9 @@ public class Game {
     }
 
     private String getRandomWord(Category category) {
-        List<String> wordsForCategory = getWordsForCategory(category);
+        List<String> wordsForCategory = wordGenerator.getWordsForCategory(category);
         int randomWordNumber = getRandomNumber(wordsForCategory.size());
 
         return wordsForCategory.get(randomWordNumber).toUpperCase(Locale.ROOT);
-    }
-
-    private List<String> getWordsForCategory(Category category) {
-        List<String> records;
-        if (category.equals(Category.CAPITALS)) {
-            records = helper.readFromFile("capitals.csv");
-        } else if (category.equals(Category.COUNTRIES)) {
-            records = helper.readFromFile("countries.csv");
-        } else {
-            records = helper.readFromFile("animals.csv");
-        }
-        return records;
     }
 }

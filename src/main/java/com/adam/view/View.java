@@ -1,4 +1,4 @@
-package com.adam.view.inter;
+package com.adam.view;
 
 import com.adam.logic.words.Category;
 

@@ -3,7 +3,7 @@ package com.adam.view.impl;
 import com.adam.helpers.Helper;
 import com.adam.logic.words.Category;
 import com.adam.view.ConsoleColors;
-import com.adam.view.inter.View;
+import com.adam.view.View;
 
 import java.util.List;
 
