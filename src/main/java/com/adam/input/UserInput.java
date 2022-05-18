@@ -53,6 +53,7 @@ public class UserInput {
             }
         } while (userSelection <= 0 || userSelection > 4);
         System.out.println("Thank you! Got " + userSelection);
+        scanner.nextLine();
         return userSelection;
     }
 }
