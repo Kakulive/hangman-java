@@ -20,6 +20,10 @@ public class Player {
         this.name = name;
     }
 
+    public boolean isPlayerDead() {
+        return this.remainingLives <= 0;
+    }
+
     private int setInitialLives(DifficultyLevel difficulty) {
         switch (difficulty) {
             case MEDIUM -> {
