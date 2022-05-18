@@ -10,14 +10,14 @@ import com.adam.view.impl.ConsoleMenuView;
 import java.util.Locale;
 
 public class GameController {
-    private final GameFactory gameFactory = new GameFactory();
     private Player player;
-    private Game game;
-    private MenuView menuView;
-    private GameView gameView;
-    private UserInteractionController input;
+    private final Game game;
+    private final MenuView menuView;
+    private final GameView gameView;
+    private final UserInteractionController input;
 
     public GameController() {
+        GameFactory gameFactory = new GameFactory();
         this.game = gameFactory.getGame();
         this.gameView = new ConsoleGameView();
         this.menuView = new ConsoleMenuView();
