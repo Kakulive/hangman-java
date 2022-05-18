@@ -3,7 +3,6 @@ package com.adam.logic;
 import com.adam.logic.words.Category;
 import com.adam.logic.words.WordGenerator;
 import com.adam.logic.words.WordGeneratorFileImpl;
-import com.adam.player.Player;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.*;

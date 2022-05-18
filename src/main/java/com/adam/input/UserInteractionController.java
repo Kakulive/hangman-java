@@ -30,6 +30,9 @@ public class UserInteractionController {
 
         while (!(isLetterValid(givenLetter))) {
             givenLetter = scanner.nextLine().toUpperCase(Locale.ROOT);
+            if (givenLetter.equals("QUIT")){
+                System.exit(0);
+            }
             if (isLetterValid(givenLetter)) {
                 return givenLetter.charAt(0);
             } else {
