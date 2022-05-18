@@ -6,8 +6,10 @@ import com.adam.logic.words.Category;
 import com.adam.logic.words.WordGenerator;
 import com.adam.logic.words.WordGeneratorFileImpl;
 import com.adam.player.Player;
-import com.adam.view.impl.ConsoleView;
-import com.adam.view.View;
+import com.adam.view.GameView;
+import com.adam.view.impl.ConsoleGameView;
+import com.adam.view.impl.ConsoleMenuView;
+import com.adam.view.MenuView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,13 +28,15 @@ public class Game {
     private List<Character> usedLetters;
     private List<Character> revealedLetters;
 
-    private View view;
+    private MenuView menuView;
+    private GameView gameView;
     private UserInteractionController input;
     private Helper helper;
     private WordGenerator wordGenerator;
 
     public Game() {
-        this.view = new ConsoleView();
+        this.gameView = new ConsoleGameView();
+        this.menuView = new ConsoleMenuView();
         this.input = new UserInteractionController();
         this.helper = new Helper();
         this.wordGenerator = new WordGeneratorFileImpl();
@@ -41,13 +45,13 @@ public class Game {
     public void start() {
         gameSetup();
         playerSetup();
-        view.printCategory(category);
+        gameView.printCategory(category);
         System.out.println(wordToGuess); //TODO remove cheat when not needed
         run();
     }
 
     private void gameSetup() {
-        view.printWelcomeScreen();
+        menuView.printWelcomeScreen();
         this.revealedLetters = new ArrayList<>();
         this.usedLetters = new ArrayList<>();
         this.category = getRandomCategory();
@@ -59,7 +63,7 @@ public class Game {
         int userDifficultySelection = input.getDifficultyFromUser();
         this.player = new Player(setDifficulty(userDifficultySelection));
         setPlayerName();
-        view.printMessage("\nWelcome " + player.getName());
+        gameView.printMessage("\nWelcome " + player.getName());
     }
 
     private void run() {
@@ -68,7 +72,7 @@ public class Game {
             char guessedLetter = input.getCharFromUser();
 
             if (usedLetters.contains(guessedLetter)) {
-                view.printMessage("The letter has already been used, try another one!");
+                gameView.printMessage("The letter has already been used, try another one!");
                 continue;
             } else if (wordToGuessChars.contains(guessedLetter)) {
                 correctLetterGuessed(guessedLetter);
@@ -85,27 +89,27 @@ public class Game {
     }
 
     private void displayUi() {
-        view.printLivesLeft(player.getRemainingLives());
-        view.printGuessedWord(wordToGuess, revealedLetters);
-        view.printEmptyLine();
-        view.printGameState(player.getRemainingLives());
+        gameView.printLivesLeft(player.getRemainingLives());
+        gameView.printGuessedWord(wordToGuess, revealedLetters);
+        menuView.printEmptyLine();
+        gameView.printGameState(player.getRemainingLives());
     }
 
     private void correctLetterGuessed(char guessedLetter) {
         usedLetters.add(guessedLetter);
         revealedLetters.add(guessedLetter);
-        view.printMessage(guessedLetter + " - That's a correct letter!");
+        gameView.printMessage(guessedLetter + " - That's a correct letter!");
     }
 
     private void wrongLetterGuessed(char guessedLetter) {
         player.hitPlayer();
         usedLetters.add(guessedLetter);
-        view.wrongLetterMessage();
+        gameView.wrongLetterMessage();
     }
 
     private void checkForLoss() {
         if (isPlayerDead()) {
-            view.printGameState(player.getRemainingLives());
+            gameView.printGameState(player.getRemainingLives());
             playAgainCheck();
         }
     }
@@ -116,7 +120,7 @@ public class Game {
 
     private void checkForWin() {
         if (hasPlayerWon()) {
-            view.printVictoryScreen(wordToGuess);
+            menuView.printVictoryScreen(wordToGuess);
             playAgainCheck();
         }
     }
@@ -136,7 +140,7 @@ public class Game {
     private void playAgainCheck() {
         String userInput = input.getUserInput("\nWould you like to play again? [y/n]").toLowerCase(Locale.ROOT);
         if (userInput.equals("y") || userInput.equals("yes")) {
-            view.clearScreen();
+            menuView.clearScreen();
             start();
         } else {
             exitGame();
@@ -165,7 +169,7 @@ public class Game {
     }
 
     private void setPlayerName() {
-        view.nameSelection();
+        menuView.nameSelection();
         String playerName = input.getUserInput("Name: ");
         player.setName(playerName);
     }

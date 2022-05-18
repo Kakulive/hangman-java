@@ -1,7 +1,9 @@
 package com.adam.input;
 
-import com.adam.view.impl.ConsoleView;
-import com.adam.view.View;
+import com.adam.view.GameView;
+import com.adam.view.impl.ConsoleGameView;
+import com.adam.view.impl.ConsoleMenuView;
+import com.adam.view.MenuView;
 
 import java.util.*;
 
@@ -9,19 +11,21 @@ public class UserInteractionController {
     private static final List<Character> alphabet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
     private static final Scanner scanner = new Scanner(System.in);
 
-    View view;
+    MenuView menuView;
+    GameView gameView;
 
     public UserInteractionController() {
-        this.view = new ConsoleView();
+        this.menuView = new ConsoleMenuView();
+        this.gameView = new ConsoleGameView();
     }
 
     public String getUserInput(String message) {
-        view.printMessage(message);
+        gameView.printMessage(message);
         return scanner.nextLine();
     }
 
     public Character getCharFromUser() {
-        view.printMessage("Please guess the next letter: ");
+        gameView.printMessage("Please guess the next letter: ");
         String givenLetter = "";
 
         while (!(isLetterValid(givenLetter))) {
@@ -29,7 +33,7 @@ public class UserInteractionController {
             if (isLetterValid(givenLetter)) {
                 return givenLetter.charAt(0);
             } else {
-                view.printMessage("Please select a valid letter: ");
+                gameView.printMessage("Please select a valid letter: ");
             }
         }
         throw new IllegalStateException("Error has occurred during letter selection from user");
@@ -40,7 +44,7 @@ public class UserInteractionController {
     }
 
     public int getDifficultyFromUser() {
-        view.difficultySelection();
+        menuView.difficultySelection();
         int userSelection;
         do {
             while (!scanner.hasNextInt()) {
@@ -49,7 +53,7 @@ public class UserInteractionController {
             }
             userSelection = scanner.nextInt();
             if (userSelection <= 0 || userSelection > 4) {
-                view.printMessage("Please select valid difficulty level");
+                gameView.printMessage("Please select valid difficulty level");
             }
         } while (userSelection <= 0 || userSelection > 4);
         System.out.println("Thank you! Got " + userSelection);
