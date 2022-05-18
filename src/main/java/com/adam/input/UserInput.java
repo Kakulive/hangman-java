@@ -1,21 +1,27 @@
 package com.adam.input;
 
-import java.util.*;
+import com.adam.view.impl.ConsoleView;
+import com.adam.view.inter.View;
 
-import static com.adam.view.View.difficultySelection;
-import static com.adam.view.View.printMessage;
+import java.util.*;
 
 public class UserInput {
     private static final List<Character> alphabet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static String getUserInput(String message) {
-        printMessage(message);
+    View view;
+
+    public UserInput() {
+        this.view = new ConsoleView();
+    }
+
+    public String getUserInput(String message) {
+        view.printMessage(message);
         return scanner.nextLine();
     }
 
-    public static Character getCharFromUser() {
-        printMessage("Please guess the next letter: ");
+    public Character getCharFromUser() {
+        view.printMessage("Please guess the next letter: ");
         String givenLetter = "";
 
         while (!(isLetterValid(givenLetter))) {
@@ -23,18 +29,18 @@ public class UserInput {
             if (isLetterValid(givenLetter)) {
                 return givenLetter.charAt(0);
             } else {
-                printMessage("Please select a valid letter: ");
+                view.printMessage("Please select a valid letter: ");
             }
         }
         throw new IllegalStateException("Error has occurred during letter selection from user");
     }
 
-    private static boolean isLetterValid(String givenLetter) {
+    private boolean isLetterValid(String givenLetter) {
         return givenLetter.length() == 1 && alphabet.contains(givenLetter.charAt(0));
     }
 
-    public static int getDifficultyFromUser() {
-        difficultySelection();
+    public int getDifficultyFromUser() {
+        view.difficultySelection();
         int userSelection;
         do {
             while (!scanner.hasNextInt()) {
@@ -43,7 +49,7 @@ public class UserInput {
             }
             userSelection = scanner.nextInt();
             if (userSelection <= 0 || userSelection > 4) {
-                printMessage("Please select valid difficulty level");
+                view.printMessage("Please select valid difficulty level");
             }
         } while (userSelection <= 0 || userSelection > 4);
         System.out.println("Thank you! Got " + userSelection);
