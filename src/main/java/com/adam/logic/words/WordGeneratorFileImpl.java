@@ -8,15 +8,17 @@ public class WordGeneratorFileImpl implements WordGenerator{
     private final Helper helper = new Helper();
 
     public List<String> getWordsForCategory(Category category) {
-        List<String> records;
-        if (category.equals(Category.CAPITALS)) {
-            records = helper.readFromFile("capitals.csv");
-        } else if (category.equals(Category.COUNTRIES)) {
-            records = helper.readFromFile("countries.csv");
-        } else {
-            records = helper.readFromFile("animals.csv");
+        switch (category){
+            case CAPITALS -> {
+                return helper.readFromFile("capitals.csv");
+            }
+            case COUNTRIES -> {
+                return helper.readFromFile("countries.csv");
+            }
+            case ANIMALS -> {
+                return helper.readFromFile("animals.csv");
+            }
         }
-        return records;
+        throw new IllegalArgumentException("Unknown category " + category + ". Cannot properly select word.");
     }
-
 }
