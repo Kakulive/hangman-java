@@ -1,16 +1,11 @@
 package com.adam.logic;
 
-import com.adam.input.UserInteractionController;
-
 public class GameFactory {
-    private final UserInteractionController input;
 
     public GameFactory() {
-        this.input = new UserInteractionController();
     }
 
-    public Game getGame(){
-        int userDifficultySelection = input.getDifficultyFromUser();
+    public Game getGame(int userDifficultySelection){
         DifficultyLevel difficultyLevel = setDifficulty(userDifficultySelection);
         return new Game(difficultyLevel);
     }

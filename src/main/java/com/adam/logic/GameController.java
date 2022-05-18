@@ -6,34 +6,49 @@ import com.adam.view.GameView;
 import com.adam.view.MenuView;
 import com.adam.view.impl.ConsoleGameView;
 import com.adam.view.impl.ConsoleMenuView;
+import lombok.Getter;
 
 import java.util.Locale;
 
+@Getter
 public class GameController {
     private Player player;
-    private final Game game;
+    private Game game;
     private final MenuView menuView;
     private final GameView gameView;
     private final UserInteractionController input;
 
     public GameController() {
-        GameFactory gameFactory = new GameFactory();
-        this.game = gameFactory.getGame();
         this.gameView = new ConsoleGameView();
         this.menuView = new ConsoleMenuView();
         this.input = new UserInteractionController();
+        setup();
     }
 
-    public void startGame() {
+    public GameController(MenuView menuView, GameView gameView, UserInteractionController input) {
+        this.menuView = menuView;
+        this.gameView = gameView;
+        this.input = input;
+        setup();
+    }
+
+    private void setup() {
         menuView.printWelcomeScreen();
+        this.game = createGame();
         game.gameSetup();
         playerSetup();
         gameView.printCategory(game.getCategory());
         System.out.println(game.getWordToGuess()); //TODO remove cheat when not needed
-        runGame();
     }
 
-    private void runGame() {
+    private Game createGame() {
+        int userDifficultySelection = input.getDifficultyFromUser();
+        GameFactory gameFactory = new GameFactory();
+
+        return gameFactory.getGame(userDifficultySelection);
+    }
+
+    public void startGame() {
         while (isGameRunning()) {
             displayUi();
             char guessedLetter = input.getCharFromUser();
@@ -103,6 +118,7 @@ public class GameController {
         String userInput = input.getUserInput("\nWould you like to play again? [y/n]").toLowerCase(Locale.ROOT);
         if (userInput.equals("y") || userInput.equals("yes")) {
             menuView.clearScreen();
+            setup();
             startGame();
         } else {
             exitGame();
