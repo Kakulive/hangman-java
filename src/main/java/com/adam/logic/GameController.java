@@ -34,7 +34,7 @@ public class GameController {
     }
 
     private void runGame() {
-        while (game.isGameRunning(player)) {
+        while (isGameRunning()) {
             displayUi();
             char guessedLetter = input.getCharFromUser();
 
@@ -49,6 +49,10 @@ public class GameController {
             checkForLoss();
             checkForWin();
         }
+    }
+
+    private boolean isGameRunning() {
+        return player.getRemainingLives() > 0 && game.getWordToGuessChars().size() > 0;
     }
 
     private void correctGuessAction(char guessedLetter) {

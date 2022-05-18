@@ -35,10 +35,6 @@ public class Game {
         this.wordToGuessChars = wordToGuess.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
     }
 
-    public boolean isGameRunning(Player player) {
-        return player.getRemainingLives() > 0 && wordToGuessChars.size() > 0;
-    }
-
     public void correctLetterGuessedUpdate(char guessedLetter) {
         usedLetters.add(guessedLetter);
         revealedLetters.add(guessedLetter);
