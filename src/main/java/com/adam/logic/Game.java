@@ -1,5 +1,6 @@
 package com.adam.logic;
 
+import com.adam.helpers.Helper;
 import com.adam.input.UserInput;
 import com.adam.logic.words.Category;
 import com.adam.player.Player;
@@ -26,10 +27,12 @@ public class Game {
 
     private View view;
     private UserInput input;
+    private Helper helper;
 
     public Game() {
         this.view = new ConsoleView();
         this.input = new UserInput();
+        this.helper = new Helper();
     }
 
     public void start() {
@@ -177,22 +180,13 @@ public class Game {
     }
 
     private List<String> getWordsForCategory(Category category) {
-        List<String> records = new ArrayList<>();
-        InputStream stream;
+        List<String> records;
         if (category.equals(Category.CAPITALS)) {
-            stream = getClass().getClassLoader().getResourceAsStream("capitals.csv");
+            records = helper.readFromFile("capitals.csv");
         } else if (category.equals(Category.COUNTRIES)) {
-            stream = getClass().getClassLoader().getResourceAsStream("countries.csv");
+            records = helper.readFromFile("countries.csv");
         } else {
-            stream = getClass().getClassLoader().getResourceAsStream("animals.csv");
-        }
-
-        if (stream == null) {
-            throw new IllegalArgumentException("File not found");
-        }
-        Scanner scanner = new Scanner(stream);
-        while (scanner.hasNextLine()) {
-            records.add((scanner.nextLine()));
+            records = helper.readFromFile("animals.csv");
         }
         return records;
     }
