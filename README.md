@@ -12,3 +12,8 @@ Alternatively you can:
 Please note that the current version supports IDE terminal display and formatting might be off depending on the user shell.
 
 Please bear in mind that both Java and Maven must be using version 17 for the build to work.
+
+# Installation
+Simple start the game and follow the instructions on screen.
+
+At any given point you can type 'quit' and the program will shut down.
