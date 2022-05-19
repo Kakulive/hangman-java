@@ -55,4 +55,30 @@ class GameTest {
         assertEquals(expectedUsedLetters, usedLetters);
         assertEquals(expectedRevealedLetters, revealedLetters);
     }
+
+    @Test
+    void whenPlayerGuessedEntireWord_PlayerHasWon() {
+        //GIVEN
+        List<Character> revealedLetters = Arrays.asList('D', 'O', 'G');
+        //WHEN
+        Game game = gameFactory.getGame(easyDifficulty);
+        game.setWordToGuessChars(revealedLetters);
+        game.setRevealedLetters(revealedLetters);
+        boolean hasPlayerWon = game.hasPlayerWon();
+        //THEN
+        assertTrue(hasPlayerWon);
+    }
+
+    @Test
+    void whenPlayerHasNotGuessedEntireWord_PlayerHasNotWon() {
+        //GIVEN
+        List<Character> revealedLetters = Arrays.asList('D', 'O');
+        //WHEN
+        Game game = gameFactory.getGame(easyDifficulty);
+        game.setWordToGuessChars(Arrays.asList('D', 'O', 'G'));
+        game.setRevealedLetters(revealedLetters);
+        boolean hasPlayerWon = game.hasPlayerWon();
+        //THEN
+        assertFalse(hasPlayerWon);
+    }
 }
