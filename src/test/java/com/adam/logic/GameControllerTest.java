@@ -28,20 +28,24 @@ class GameControllerTest {
     @Test
     void whenGameIsCreated_CategoryIsProperlySelected() {
         //GIVEN
-        GameController gameController = new GameController(menuView, gameView, input);
         List<Category> expectedCategories = Arrays.asList(Category.COUNTRIES, Category.CAPITALS, Category.ANIMALS);
         //WHEN
+        GameController gameController = new GameController(menuView, gameView, input);
+        Category category = gameController.getGame().getCategory();
         //THEN
-        assertTrue(expectedCategories.contains(gameController.getGame().getCategory()));
+        assertNotNull(category);
+        assertTrue(expectedCategories.contains(category));
     }
 
     @Test
     void whenGameIsCreated_PlayerNameIsProperlyAssigned() {
         //GIVEN
-        GameController gameController = new GameController(menuView, gameView, input);
         String expectedName = "Steve";
         //WHEN
+        GameController gameController = new GameController(menuView, gameView, input);
+        String playerName = gameController.getPlayer().getName();
         //THEN
-        assertEquals(expectedName, gameController.getPlayer().getName());
+        assertNotNull(playerName);
+        assertEquals(expectedName, playerName);
     }
 }
