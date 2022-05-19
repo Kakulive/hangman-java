@@ -18,6 +18,10 @@ public class GameFactory {
         this.wordGenerator = new WordGeneratorFileImpl();
     }
 
+    public GameFactory(WordGenerator wordGenerator) {
+        this.wordGenerator = wordGenerator;
+    }
+
     public Game getGame(int userDifficultySelection){
         DifficultyLevel difficultyLevel = setDifficulty(userDifficultySelection);
         Game game = new Game(difficultyLevel);
