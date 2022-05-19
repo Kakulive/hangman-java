@@ -1,5 +1,5 @@
 # hangman-java
-Hangman game created in Java
+Hangman is a guessing game for two or more players. One player thinks of a word, phrase or sentence and the other(s) tries to guess it by suggesting letters within a certain number of guesses.
 
 # Installation
 The quickest, simplest and recommended way to play and test the game is to simply clone the repository, open it in your favourite IDE and run the main function of the Main class.
