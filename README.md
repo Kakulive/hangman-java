@@ -5,6 +5,11 @@ Hangman is a guessing game for two or more players. One player thinks of a word,
 **The quickest, simplest and recommended way to play and test the game is to simply clone the repository,
 open it in your favourite IDE and run the main function of the Main class.**
 
+1. Clone the repository from: https://github.com/Kakulive/hangman-java
+2. Open the project in your favourite IDE
+3. Navigate to src/main/java/com.adam/Main.java
+4. Run the main method from Main.java file
+
 Alternatively you can:
 1. Open command line from the main folder /hangman-java
 2. Type 'mvn install' to build the project
