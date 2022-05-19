@@ -41,8 +41,8 @@ public class GameController {
     }
 
     private Game createGame() {
-        int userDifficultySelection = input.getDifficultyFromUser();
-        GameFactory gameFactory = new GameFactory();
+        final var userDifficultySelection = input.getDifficultyFromUser();
+        final var gameFactory = new GameFactory();
 
         return gameFactory.getGame(userDifficultySelection);
     }
@@ -50,7 +50,7 @@ public class GameController {
     public void startGame() {
         while (isGameRunning()) {
             displayUi();
-            char guessedLetter = input.getCharFromUser();
+            final var guessedLetter = input.getCharFromUser();
 
             if (game.getUsedLetters().contains(guessedLetter)) {
                 gameView.printMessage("The letter has already been used, try another one!");
@@ -88,7 +88,7 @@ public class GameController {
 
     private void setPlayerName() {
         menuView.nameSelection();
-        String playerName = input.getUserInput("Name: ");
+        final var playerName = input.getUserInput("Name: ");
         player.setName(playerName);
     }
 
@@ -114,7 +114,7 @@ public class GameController {
     }
 
     private void playAgainCheck() {
-        String userInput = input.getUserInput("\nWould you like to play again? [y/n]").toLowerCase(Locale.ROOT);
+        final var userInput = input.getUserInput("\nWould you like to play again? [y/n]").toLowerCase(Locale.ROOT);
         if (userInput.equals("y") || userInput.equals("yes")) {
             menuView.clearScreen();
             setup();

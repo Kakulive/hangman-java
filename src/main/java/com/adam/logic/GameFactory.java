@@ -5,7 +5,6 @@ import com.adam.logic.words.WordGenerator;
 import com.adam.logic.words.WordGeneratorFileImpl;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -23,8 +22,8 @@ public class GameFactory {
     }
 
     public Game getGame(int userDifficultySelection){
-        DifficultyLevel difficultyLevel = setDifficulty(userDifficultySelection);
-        Game game = new Game(difficultyLevel);
+        final var difficultyLevel = setDifficulty(userDifficultySelection);
+        final var game = new Game(difficultyLevel);
         gameSetup(game);
         return game;
     }
@@ -32,10 +31,10 @@ public class GameFactory {
     private void gameSetup(Game game) {
         game.setRevealedLetters(new ArrayList<>());
         game.setUsedLetters(new ArrayList<>());
-        Category category = getRandomCategory();
+        final var category = getRandomCategory();
         game.setCategory(category);
         game.setWordToGuess(getRandomWord(category));
-        List<Character> wordToGuessChars = game.getWordToGuess().chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+        final var wordToGuessChars = game.getWordToGuess().chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         game.setWordToGuessChars(wordToGuessChars);
     }
 
@@ -57,14 +56,14 @@ public class GameFactory {
     }
 
     private Category getRandomCategory() {
-        int randomCategoryNumber = getRandomNumber(Category.values().length);
+        final var randomCategoryNumber = getRandomNumber(Category.values().length);
 
         return Category.values()[randomCategoryNumber];
     }
 
     private String getRandomWord(Category category) {
-        List<String> wordsForCategory = wordGenerator.getWordsForCategory(category);
-        int randomWordNumber = getRandomNumber(wordsForCategory.size());
+        final var wordsForCategory = wordGenerator.getWordsForCategory(category);
+        final var randomWordNumber = getRandomNumber(wordsForCategory.size());
 
         return wordsForCategory.get(randomWordNumber).toUpperCase(Locale.ROOT);
     }

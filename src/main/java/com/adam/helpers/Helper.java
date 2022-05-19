@@ -1,6 +1,5 @@
 package com.adam.helpers;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,11 +14,11 @@ public class Helper {
 
     public List<String> readFromFile(String filename){
         List<String> records = new ArrayList<>();
-        InputStream stream = getClass().getClassLoader().getResourceAsStream(filename);
+        final var stream = getClass().getClassLoader().getResourceAsStream(filename);
         if (stream == null) {
             throw new IllegalArgumentException("File not found");
         }
-        Scanner scanner = new Scanner(stream);
+        final var scanner = new Scanner(stream);
         while (scanner.hasNextLine()) {
             records.add((scanner.nextLine()));
         }

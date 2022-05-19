@@ -15,9 +15,9 @@ public class ConsoleGameView implements GameView {
     }
 
     public void printGuessedWord(String word, List<Character> revealedLetters) {
-        StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         sb.append(ConsoleColors.GREEN + "Word to guess: " + ConsoleColors.RESET);
-        char[] wordChars = word.toCharArray();
+        final var wordChars = word.toCharArray();
         for (char c : wordChars) {
             if (revealedLetters.contains(c)) {
                 sb.append(c).append(" ");
@@ -50,7 +50,7 @@ public class ConsoleGameView implements GameView {
     }
 
     private void getLivesASCII(int numberOfLives) {
-        List<String> content = helper.readFromFile(numberOfLives + "LivesASCII.txt");
+        final var content = helper.readFromFile(numberOfLives + "LivesASCII.txt");
         content.forEach(System.out::println);
     }
 }

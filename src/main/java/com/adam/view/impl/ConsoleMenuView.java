@@ -4,8 +4,6 @@ import com.adam.helpers.Helper;
 import com.adam.view.ConsoleColors;
 import com.adam.view.MenuView;
 
-import java.util.List;
-
 public class ConsoleMenuView implements MenuView {
     private final Helper helper = new Helper();
 
@@ -34,7 +32,7 @@ public class ConsoleMenuView implements MenuView {
 
     public void printVictoryScreen(String word) {
         System.out.println(ConsoleColors.GREEN + "Congratulations! You have won!\nYour word is " + word + ConsoleColors.RESET + "\n");
-        List<String> content = helper.readFromFile("victory.txt");
+        final var content = helper.readFromFile("victory.txt");
         content.forEach(System.out::println);
     }
 
