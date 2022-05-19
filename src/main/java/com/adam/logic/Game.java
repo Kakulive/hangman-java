@@ -1,14 +1,9 @@
 package com.adam.logic;
 
 import com.adam.logic.words.Category;
-import com.adam.logic.words.WordGenerator;
-import com.adam.logic.words.WordGeneratorFileImpl;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.adam.helpers.Helper.getRandomNumber;
 
 @Getter
 @Setter
@@ -19,19 +14,9 @@ public class Game {
     private List<Character> wordToGuessChars;
     private List<Character> usedLetters;
     private List<Character> revealedLetters;
-    private WordGenerator wordGenerator;
 
     public Game(DifficultyLevel difficulty) {
         this.difficulty = difficulty;
-        this.wordGenerator = new WordGeneratorFileImpl();
-    }
-
-    public void gameSetup() {
-        this.revealedLetters = new ArrayList<>();
-        this.usedLetters = new ArrayList<>();
-        this.category = getRandomCategory();
-        this.wordToGuess = getRandomWord(category);
-        this.wordToGuessChars = wordToGuess.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
     }
 
     public void correctLetterGuessedUpdate(char guessedLetter) {
@@ -53,18 +38,5 @@ public class Game {
             }
         }
         return true;
-    }
-
-    private Category getRandomCategory() {
-        int randomCategoryNumber = getRandomNumber(Category.values().length);
-
-        return Category.values()[randomCategoryNumber];
-    }
-
-    private String getRandomWord(Category category) {
-        List<String> wordsForCategory = wordGenerator.getWordsForCategory(category);
-        int randomWordNumber = getRandomNumber(wordsForCategory.size());
-
-        return wordsForCategory.get(randomWordNumber).toUpperCase(Locale.ROOT);
     }
 }

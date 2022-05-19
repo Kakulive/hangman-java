@@ -35,7 +35,6 @@ public class GameController {
     private void setup() {
         menuView.printWelcomeScreen();
         this.game = createGame();
-        game.gameSetup();
         playerSetup();
         gameView.printCategory(game.getCategory());
         System.out.println(game.getWordToGuess()); //TODO remove cheat when not needed
