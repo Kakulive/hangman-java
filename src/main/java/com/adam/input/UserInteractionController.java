@@ -8,8 +8,8 @@ import com.adam.view.MenuView;
 import java.util.*;
 
 public class UserInteractionController {
-    private static final List<Character> alphabet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-    private static final Scanner scanner = new Scanner(System.in);
+    private final List<Character> alphabet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+    private final Scanner scanner = new Scanner(System.in);
 
     MenuView menuView;
     GameView gameView;
