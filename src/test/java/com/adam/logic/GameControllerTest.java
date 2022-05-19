@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -28,10 +27,10 @@ class GameControllerTest {
     @Test
     void whenGameIsCreated_CategoryIsProperlySelected() {
         //GIVEN
-        List<Category> expectedCategories = Arrays.asList(Category.COUNTRIES, Category.CAPITALS, Category.ANIMALS);
+        var expectedCategories = Arrays.asList(Category.COUNTRIES, Category.CAPITALS, Category.ANIMALS);
         //WHEN
-        GameController gameController = new GameController(menuView, gameView, input);
-        Category category = gameController.getGame().getCategory();
+        var gameController = new GameController(menuView, gameView, input);
+        var category = gameController.getGame().getCategory();
         //THEN
         assertNotNull(category);
         assertTrue(expectedCategories.contains(category));
@@ -40,10 +39,10 @@ class GameControllerTest {
     @Test
     void whenGameIsCreated_PlayerNameIsProperlyAssigned() {
         //GIVEN
-        String expectedName = "Steve";
+        var expectedName = "Steve";
         //WHEN
-        GameController gameController = new GameController(menuView, gameView, input);
-        String playerName = gameController.getPlayer().getName();
+        var gameController = new GameController(menuView, gameView, input);
+        var playerName = gameController.getPlayer().getName();
         //THEN
         assertNotNull(playerName);
         assertEquals(expectedName, playerName);

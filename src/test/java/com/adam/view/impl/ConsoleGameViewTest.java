@@ -31,7 +31,7 @@ class ConsoleGameViewTest {
     @Test
     void whenPrintMessageIsCalled_TheExactMessageGetsPrinted() {
         //GIVEN
-        String expectedMessage = "Hello World";
+        var expectedMessage = "Hello World";
         //WHEN
         consoleGameView.printMessage(expectedMessage);
         //THEN
@@ -41,9 +41,9 @@ class ConsoleGameViewTest {
     @Test
     void whenSomeCharactersAreRevealed_thenGuessedWordPrintsWithCharactersAndDashes() {
         //GIVEN
-        String word = "BARCELONA";
-        List<Character> revealedLetters = Arrays.asList('B', 'R', 'C');
-        String expectedMessage = ConsoleColors.GREEN + "Word to guess: " + ConsoleColors.RESET + "B _ R C _ _ _ _ _";
+        var word = "BARCELONA";
+        var revealedLetters = Arrays.asList('B', 'R', 'C');
+        var expectedMessage = ConsoleColors.GREEN + "Word to guess: " + ConsoleColors.RESET + "B _ R C _ _ _ _ _";
         //WHEN
         consoleGameView.printGuessedWord(word, revealedLetters);
         //THEN
@@ -53,7 +53,7 @@ class ConsoleGameViewTest {
     @Test
     void whenPrintLivesLeftIsCalled_AmountOfLivesIsPrinted() {
         //GIVEN
-        String expectedMessage = ConsoleColors.GREEN + "LIVES: " + ConsoleColors.RESET + "5";
+        var expectedMessage = ConsoleColors.GREEN + "LIVES: " + ConsoleColors.RESET + "5";
         //WHEN
         consoleGameView.printLivesLeft(5);
         //THEN
@@ -63,7 +63,7 @@ class ConsoleGameViewTest {
     @Test
     void whenPrintCategoryIsCalled_CategoryIsPrinted() {
         //GIVEN
-        String expectedMessage = ConsoleColors.GREEN + "Category of your word is: " + ConsoleColors.RESET + "CAPITALS";
+        var expectedMessage = ConsoleColors.GREEN + "Category of your word is: " + ConsoleColors.RESET + "CAPITALS";
         //WHEN
         consoleGameView.printCategory(Category.CAPITALS);
         //THEN
@@ -73,7 +73,7 @@ class ConsoleGameViewTest {
     @Test
     void whenWrongLetterMessageIsCalled_CorrectMessageIsPrinted() {
         //GIVEN
-        String expectedMessage = ConsoleColors.RED + "Wrong letter, try again!" + ConsoleColors.RESET;
+        var expectedMessage = ConsoleColors.RED + "Wrong letter, try again!" + ConsoleColors.RESET;
         //WHEN
         consoleGameView.wrongLetterMessage();
         //THEN
@@ -83,7 +83,7 @@ class ConsoleGameViewTest {
     @Test
     void whenPrintGameStateWith0LivesIsCalled_GameOverMessageAppears() {
         //GIVEN
-        String expectedMessage = ConsoleColors.RED_BACKGROUND_BRIGHT + "GAME OVER" + ConsoleColors.RESET +
+        var expectedMessage = ConsoleColors.RED_BACKGROUND_BRIGHT + "GAME OVER" + ConsoleColors.RESET +
                                  "\n                 +---+\n" +
                                  "                 |   |\n" +
                                  "                 O   |\n" +
@@ -101,7 +101,7 @@ class ConsoleGameViewTest {
     @Test
     void whenPrintGameStateWhileAlive_ProperHangmanAppears() {
         //GIVEN
-        String expectedMessage = "                 +---+\n" +
+        var expectedMessage = "                 +---+\n" +
                                  "                 |   |\n" +
                                  "                 O   |\n" +
                                  "                /|\\  |\n" +

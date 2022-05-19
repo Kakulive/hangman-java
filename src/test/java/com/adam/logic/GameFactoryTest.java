@@ -39,11 +39,11 @@ class GameFactoryTest {
         //GIVEN
         randomDifficulty = 5;
         //WHEN
-        Game easyGame = gameFactory.getGame(easyDifficulty);
-        Game mediumGame = gameFactory.getGame(mediumDifficulty);
-        Game hardGame = gameFactory.getGame(hardDifficulty);
-        Game impossibleGame = gameFactory.getGame(impossibleDifficulty);
-        Game randomGame = gameFactory.getGame(randomDifficulty);
+        var easyGame = gameFactory.getGame(easyDifficulty);
+        var mediumGame = gameFactory.getGame(mediumDifficulty);
+        var hardGame = gameFactory.getGame(hardDifficulty);
+        var impossibleGame = gameFactory.getGame(impossibleDifficulty);
+        var randomGame = gameFactory.getGame(randomDifficulty);
         //THEN
         assertEquals(DifficultyLevel.EASY, easyGame.getDifficulty());
         assertEquals(DifficultyLevel.MEDIUM, mediumGame.getDifficulty());
@@ -55,10 +55,10 @@ class GameFactoryTest {
     @Test
     void whenCreatingNewGame_ProperCategoryIsAssigned() {
         //GIVEN
-        List<Category> expectedCategories = Arrays.asList(Category.COUNTRIES, Category.CAPITALS, Category.ANIMALS);
+        var expectedCategories = Arrays.asList(Category.COUNTRIES, Category.CAPITALS, Category.ANIMALS);
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
-        Category category = game.getCategory();
+        var game = gameFactory.getGame(easyDifficulty);
+        var category = game.getCategory();
         //THEN
         assertNotNull(category);
         assertTrue(expectedCategories.contains(category));
@@ -67,12 +67,12 @@ class GameFactoryTest {
     @Test
     void whenCreatingNewGame_RevealedAndUsedLettersAreEmpty() {
         //GIVEN
-        List<Character> expectedUsedLetters = Collections.emptyList();
-        List<Character> expectedRevealedLetters = Collections.emptyList();
+        var expectedUsedLetters = Collections.emptyList();
+        var expectedRevealedLetters = Collections.emptyList();
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
-        List<Character> usedLetters = game.getUsedLetters();
-        List<Character> revealedLetters = game.getRevealedLetters();
+        var game = gameFactory.getGame(easyDifficulty);
+        var usedLetters = game.getUsedLetters();
+        var revealedLetters = game.getRevealedLetters();
         //THEN
         assertNotNull(usedLetters);
         assertNotNull(revealedLetters);
@@ -84,12 +84,12 @@ class GameFactoryTest {
     @Test
     void whenCreatingNewGame_WordToGuessIsProperlyAssigned() {
         //GIVEN
-        String possibleExpectedWordToGuess1 = "DOG";
-        String possibleExpectedWordToGuess2 = "CAT";
-        String possibleExpectedWordToGuess3 = "PIG";
+        var possibleExpectedWordToGuess1 = "DOG";
+        var possibleExpectedWordToGuess2 = "CAT";
+        var possibleExpectedWordToGuess3 = "PIG";
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
-        String wordToGuess = game.getWordToGuess();
+        var game = gameFactory.getGame(easyDifficulty);
+        var wordToGuess = game.getWordToGuess();
         //THEN
         assertNotNull(game.getWordToGuess());
         assertTrue(possibleExpectedWordToGuess1.equals(wordToGuess) ||
@@ -100,11 +100,11 @@ class GameFactoryTest {
     @Test
     void whenCreatingNewGame_WordToGuessIsProperlySplitToChars() {
         //GIVEN
-        List<Character> expectedWordToGuessChars = Arrays.asList('D', 'O', 'G');
+        var expectedWordToGuessChars = Arrays.asList('D', 'O', 'G');
         when(wordGenerator.getWordsForCategory(any())).thenReturn(List.of("DOG"));
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
-        List<Character> wordToGuessChars = game.getWordToGuessChars();
+        var game = gameFactory.getGame(easyDifficulty);
+        var wordToGuessChars = game.getWordToGuessChars();
         //THEN
         assertNotNull(wordToGuessChars);
         assertEquals(expectedWordToGuessChars, wordToGuessChars);

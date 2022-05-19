@@ -10,15 +10,15 @@ class PlayerTest {
     @Test
     void whenPlayerIsCreatedWithSelectedDifficulty_ProperRemainingLivesAreSet() {
         //GIVEN
-        int expectedEasyLives = 7;
-        int expectedMediumLives = 5;
-        int expectedHardLives = 3;
-        int expectedImpossibleLives = 1;
+        var expectedEasyLives = 7;
+        var expectedMediumLives = 5;
+        var expectedHardLives = 3;
+        var expectedImpossibleLives = 1;
         //WHEN
-        Player easyPlayer = new Player(DifficultyLevel.EASY);
-        Player mediumPlayer = new Player(DifficultyLevel.MEDIUM);
-        Player hardPlayer = new Player(DifficultyLevel.HARD);
-        Player impossiblePlayer = new Player(DifficultyLevel.IMPOSSIBLE);
+        var easyPlayer = new Player(DifficultyLevel.EASY);
+        var mediumPlayer = new Player(DifficultyLevel.MEDIUM);
+        var hardPlayer = new Player(DifficultyLevel.HARD);
+        var impossiblePlayer = new Player(DifficultyLevel.IMPOSSIBLE);
         //THEN
         assertEquals(expectedEasyLives, easyPlayer.getRemainingLives());
         assertEquals(expectedMediumLives, mediumPlayer.getRemainingLives());

@@ -29,13 +29,13 @@ class GameTest {
     @Test
     void whenCorrectLetterIsGuessed_LetterGetsAddedToUsedAndRevealedLetters() {
         //GIVEN
-        List<Character> expectedUsedLetters = List.of('C');
-        List<Character> expectedRevealedLetters = List.of('C');
+        var expectedUsedLetters = List.of('C');
+        var expectedRevealedLetters = List.of('C');
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
+        var game = gameFactory.getGame(easyDifficulty);
         game.correctLetterGuessedUpdate('C');
-        List<Character> usedLetters = game.getUsedLetters();
-        List<Character> revealedLetters = game.getRevealedLetters();
+        var usedLetters = game.getUsedLetters();
+        var revealedLetters = game.getRevealedLetters();
         //THEN
         assertEquals(expectedUsedLetters, usedLetters);
         assertEquals(expectedRevealedLetters, revealedLetters);
@@ -44,13 +44,13 @@ class GameTest {
     @Test
     void whenWrongLetterIsGuessed_LetterGetsAddedToUsedLettersButNotToRevealedLetters() {
         //GIVEN
-        List<Character> expectedUsedLetters = List.of('D');
-        List<Character> expectedRevealedLetters = Collections.emptyList();
+        var expectedUsedLetters = List.of('D');
+        var expectedRevealedLetters = Collections.emptyList();
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
+        var game = gameFactory.getGame(easyDifficulty);
         game.wrongLetterGuessedUpdate('D');
-        List<Character> usedLetters = game.getUsedLetters();
-        List<Character> revealedLetters = game.getRevealedLetters();
+        var usedLetters = game.getUsedLetters();
+        var revealedLetters = game.getRevealedLetters();
         //THEN
         assertEquals(expectedUsedLetters, usedLetters);
         assertEquals(expectedRevealedLetters, revealedLetters);
@@ -59,9 +59,9 @@ class GameTest {
     @Test
     void whenPlayerGuessedEntireWord_PlayerHasWon() {
         //GIVEN
-        List<Character> revealedLetters = Arrays.asList('D', 'O', 'G');
+        var revealedLetters = Arrays.asList('D', 'O', 'G');
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
+        var game = gameFactory.getGame(easyDifficulty);
         game.setWordToGuessChars(revealedLetters);
         game.setRevealedLetters(revealedLetters);
         boolean hasPlayerWon = game.hasPlayerWon();
@@ -72,9 +72,9 @@ class GameTest {
     @Test
     void whenPlayerHasNotGuessedEntireWord_PlayerHasNotWon() {
         //GIVEN
-        List<Character> revealedLetters = Arrays.asList('D', 'O');
+        var revealedLetters = Arrays.asList('D', 'O');
         //WHEN
-        Game game = gameFactory.getGame(easyDifficulty);
+        var game = gameFactory.getGame(easyDifficulty);
         game.setWordToGuessChars(Arrays.asList('D', 'O', 'G'));
         game.setRevealedLetters(revealedLetters);
         boolean hasPlayerWon = game.hasPlayerWon();

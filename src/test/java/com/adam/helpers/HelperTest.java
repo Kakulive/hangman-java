@@ -3,7 +3,6 @@ package com.adam.helpers;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,10 +24,10 @@ class HelperTest {
     @Test
     void whenReadingFromResourcesFile_FileIsReadCorrectly() {
         //GIVEN
-        Helper helper = new Helper();
-        List<String> expectedAnimalsList = Arrays.asList("Cat", "Cattle", "Dog", "Donkey");
+        var helper = new Helper();
+        var expectedAnimalsList = Arrays.asList("Cat", "Cattle", "Dog", "Donkey");
         //WHEN
-        List<String> animalsList = helper.readFromFile("animals_test.csv");
+        var animalsList = helper.readFromFile("animals_test.csv");
         //THEN
         assertNotNull(animalsList);
         assertEquals(expectedAnimalsList, animalsList);

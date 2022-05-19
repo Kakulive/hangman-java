@@ -28,7 +28,7 @@ class ConsoleMenuViewTest {
     @Test
     void whenPrintWelcomeScreenIsCalled_CorrectMessageIsPrinted() {
         //GIVEN
-        String expectedMessage = ConsoleColors.BLUE_BOLD_BRIGHT + "Welcome to HANGMAN" + ConsoleColors.RESET;
+        var expectedMessage = ConsoleColors.BLUE_BOLD_BRIGHT + "Welcome to HANGMAN" + ConsoleColors.RESET;
         //WHEN
         consoleMenuView.printWelcomeScreen();
         //THEN
@@ -38,8 +38,8 @@ class ConsoleMenuViewTest {
     @Test
     void whenPrintDifficultySelectionIsCalled_CorrectMessageIsPrinted() {
         //GIVEN
-        String expectedMessage1 = ConsoleColors.GREEN + "Please select the difficulty:" + ConsoleColors.RESET;
-        String expectedMessage2 = """
+        var expectedMessage1 = ConsoleColors.GREEN + "Please select the difficulty:" + ConsoleColors.RESET;
+        var expectedMessage2 = """
                 1 - Default (7 lives)
                 2 - Medium (5 lives)
                 3 - Hard (3 lives)
@@ -55,7 +55,7 @@ class ConsoleMenuViewTest {
     @Test
     void whenNameSelectionIsCalled_CorrectMessageIsPrinted() {
         //GIVEN
-        String expectedMessage = ConsoleColors.GREEN + "Please tell me your name" + ConsoleColors.RESET;
+        var expectedMessage = ConsoleColors.GREEN + "Please tell me your name" + ConsoleColors.RESET;
         //WHEN
         consoleMenuView.nameSelection();
         //THEN
@@ -65,7 +65,7 @@ class ConsoleMenuViewTest {
     @Test
     void whenPrintEmptyLineIsCalled_EmptyLineGetsPrinted() {
         //GIVEN
-        String expectedMessage = "";
+        var expectedMessage = "";
         //WHEN
         consoleMenuView.printEmptyLine();
         //THEN
