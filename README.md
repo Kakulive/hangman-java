@@ -1,6 +1,7 @@
 # hangman-java
-Hangman is a guessing game for two or more players. One player thinks of a word, phrase or sentence and the other(s) tries to guess it by suggesting letters within a certain number of guesses.
-In this game one of the players is simulated by the computer and thinks of a word to guess. The human player (you) must beat him and figure out what he had in mind before it's too late!
+Hangman is a guessing game for two players, one of which is simulated by the computer in this project. 
+Computer thinks of a word, phrase or sentence and the human player (you) tries to guess it by suggesting letters within a certain number of guesses.
+You must beat the machine and figure out what it had in mind before it's too late!
 
 # Installation
 **The quickest, simplest and recommended way to play and test the game is to simply clone the repository,
