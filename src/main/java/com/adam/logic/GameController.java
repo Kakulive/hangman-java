@@ -94,6 +94,7 @@ public class GameController {
     private void checkForLoss() {
         if (player.isPlayerDead()) {
             gameView.printGameState(player.getRemainingLives());
+            gameView.printMessage("The word to guess was: " + game.getWordToGuess());
             playAgainCheck();
         }
     }
